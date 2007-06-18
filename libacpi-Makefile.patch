@@ -1,0 +1,11 @@
+--- libacpi-0.1/Makefile~	2007-06-14 18:39:48.000000000 +0200
++++ libacpi-0.1/Makefile	2007-06-18 21:24:56.000000000 +0200
+@@ -57,8 +57,6 @@
+ 	@mkdir -p ${DESTDIR}${MANPREFIX}/man3
+ 	@cp libacpi.3 ${DESTDIR}${MANPREFIX}/man3
+ 	@echo installing documentation and misc files to ${DESTDIR}${PREFIX}/share/doc/libacpi
+-	@mkdir -p ${DESTDIR}${PREFIX}/share/doc/libacpi
+-	@cp -r AUTHORS CHANGES README LICENSE doc ${DESTDIR}${PREFIX}/share/doc/libacpi
+ 	@echo finished installation
+ 
+ uninstall:
