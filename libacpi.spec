@@ -1,5 +1,6 @@
-Summary:	a library for programs gathering ACPI data 
-Summary(pl.UTF-8):	biblioteka dla programów pobierających dane ACPI
+# TODO: optflags
+Summary:	A library for programs gathering ACPI data 
+Summary(pl.UTF-8):	Biblioteka dla programów pobierających dane ACPI
 Name:		libacpi
 Version:	0.1
 Release:	1
@@ -67,10 +68,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGES README doc/html/*
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/lib*.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.0
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/%{name}.h
 
 %files static
