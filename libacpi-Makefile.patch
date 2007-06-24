@@ -1,6 +1,36 @@
---- libacpi-0.1/Makefile~	2007-06-14 18:39:48.000000000 +0200
-+++ libacpi-0.1/Makefile	2007-06-18 21:24:56.000000000 +0200
-@@ -57,8 +57,6 @@
+--- libacpi-0.1/Makefile.orig	2007-06-14 18:39:48.000000000 +0200
++++ libacpi-0.1/Makefile	2007-06-24 15:04:47.680868573 +0200
+@@ -30,7 +30,7 @@ libacpi.a: ${OBJ}
+ 
+ libacpi.so: ${OBJ}
+ 	@echo LD $@
+-	@${LD} ${SOFLAGS} -o $@.${SONAME} ${OBJ}
++	@${LD} ${SOFLAGS} -o ${SONAME} ${OBJ}
+ 
+ test-libacpi: ${OBJ_test}
+ 	@echo LD $@
+@@ -42,13 +42,13 @@ install: all
+ 	@mkdir -p ${DESTDIR}${PREFIX}/include
+ 	@cp -f libacpi.h ${DESTDIR}${PREFIX}/include
+ 	@chmod 644 ${DESTDIR}${PREFIX}/include/libacpi.h
+-	@echo installing library to ${DESTDIR}${PREFIX}/lib
+-	@mkdir -p ${DESTDIR}${PREFIX}/lib
+-	@cp -f libacpi.a ${DESTDIR}${PREFIX}/lib
+-	@chmod 644 ${DESTDIR}${PREFIX}/lib/libacpi.a
+-	@cp -f libacpi.so.${SONAME} ${DESTDIR}${PREFIX}/lib/
+-	@chmod 644 ${DESTDIR}${PREFIX}/lib/libacpi.so.${SONAME}
+-	@ln -s libacpi.so.${SONAME} ${DESTDIR}${PREFIX}/lib/libacpi.so
++	@echo installing library to ${DESTDIR}${LIBDIR}
++	@mkdir -p ${DESTDIR}${LIBDIR}
++	@cp -f libacpi.a ${DESTDIR}${LIBDIR}
++	@chmod 644 ${DESTDIR}${LIBDIR}/libacpi.a
++	@cp -f ${SONAME} ${DESTDIR}${LIBDIR}/
++	@chmod 755 ${DESTDIR}${LIBDIR}/${SONAME}
++	@ln -s ${SONAME} ${DESTDIR}${LIBDIR}/libacpi.so
+ 	@echo installing test-libacpi to ${DESTDIR}${PREFIX}/bin
+ 	@mkdir -p ${DESTDIR}${PREFIX}/bin
+ 	@cp -f test-libacpi ${DESTDIR}${PREFIX}/bin
+@@ -57,18 +57,16 @@ install: all
  	@mkdir -p ${DESTDIR}${MANPREFIX}/man3
  	@cp libacpi.3 ${DESTDIR}${MANPREFIX}/man3
  	@echo installing documentation and misc files to ${DESTDIR}${PREFIX}/share/doc/libacpi
@@ -9,3 +39,32 @@
  	@echo finished installation
  
  uninstall:
+ 	@echo removing header file from ${DESTDIR}${PREFIX}/include
+ 	@rm -f ${DESTDIR}${PREFIX}/include/libacpi.h
+-	@echo removing library file from ${DESTDIR}${PREFIX}/lib
++	@echo removing library file from ${DESTDIR}${LIBDIR}
+ 	@rm -f ${DESTDIR}${PREFIX}/lib/libacpi.a
+-	@echo removing shared object file from ${DESTDIR}${PREFIX}/lib
+-	@rm -f ${DESTDIR}${PREFIX}/lib/libacpi.so
+-	@rm -f ${DESTDIR}${PREFIX}/lib/libacpi.so.${SONAME}
++	@echo removing shared object file from ${DESTDIR}${LIBDIR}
++	@rm -f ${DESTDIR}${LIBDIR}/libacpi.so
++	@rm -f ${DESTDIR}${LIBDIR}/libacpi.so.${SONAME}
+ 	@echo removing test-libacpi client from ${DESTDIR}${PREFIX}/bin
+ 	@rm -f ${DESTDIR}${PREFIX}/bin/test-libacpi
+ 	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man3
+--- libacpi-0.1/config.mk.orig	2007-06-14 18:39:48.000000000 +0200
++++ libacpi-0.1/config.mk	2007-06-24 15:03:49.085529415 +0200
+@@ -1,9 +1,11 @@
+ VERSION = 0.1
+-SONAME = 0
++SOVER = 0
++SONAME = libacpi.so.${SOVER}
+ 
+ # customize below to fit your system
+ PREFIX = /usr/local
+ MANPREFIX = ${PREFIX}/share/man
++LIBDIR = ${PREFIX}/lib
+ 
+ # flags
+ SOFLAGS = -shared -Wl,-soname,${SONAME}
