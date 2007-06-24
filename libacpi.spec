@@ -1,4 +1,3 @@
-# TODO: optflags
 Summary:	A library for programs gathering ACPI data 
 Summary(pl.UTF-8):	Biblioteka dla programów pobierających dane ACPI
 Name:		libacpi
@@ -10,6 +9,7 @@ Source0:	http://www.ngolde.de/download/%{name}-%{version}.tar.gz
 # Source0-md5:	49ecbeae66c3dc2588cd08328c6b759a
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.ngolde.de/libacpi.html
+ExclusiveArch:	%{ix86} %{x8664} ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -47,16 +47,17 @@ Statyczna biblioteka libacpi.
 %patch0 -p1
 
 %build
-%{__make}
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -fPIC -Wall"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}" \
 	DESTDIR=$RPM_BUILD_ROOT \
-	PREFIX="%{_prefix}"
+	PREFIX="%{_prefix}" \
+	LIBDIR="%{_libdir}"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,13 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGES README doc/html/*
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so.0
+%attr(755,root,root) %{_libdir}/libacpi.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/%{name}.h
+%attr(755,root,root) %{_libdir}/libacpi.so
+%{_includedir}/libacpi.h
+%{_mandir}/man3/libacpi.3*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/lib*.a
+%{_libdir}/libacpi.a
