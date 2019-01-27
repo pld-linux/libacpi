@@ -2,7 +2,7 @@ Summary:	A library for programs gathering ACPI data
 Summary(pl.UTF-8):	Biblioteka dla programów pobierających dane ACPI
 Name:		libacpi
 Version:	0.2
-Release:	1
+Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://www.ngolde.de/download/%{name}-%{version}.tar.gz
