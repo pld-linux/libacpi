@@ -9,7 +9,7 @@ Source0:	http://www.ngolde.de/download/%{name}-%{version}.tar.gz
 # Source0-md5:	05b53dd7bead66dda35fec502b91066c
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.ngolde.de/libacpi.html
-ExclusiveArch:	%{ix86} %{x8664} ia64
+ExclusiveArch:	%{ix86} %{x8664} x32 ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -68,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGES README doc/html/*
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/test-libacpi
 %attr(755,root,root) %{_libdir}/libacpi.so.0
 
 %files devel
