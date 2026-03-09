@@ -2,12 +2,13 @@ Summary:	A library for programs gathering ACPI data
 Summary(pl.UTF-8):	Biblioteka dla programów pobierających dane ACPI
 Name:		libacpi
 Version:	0.2
-Release:	2
+Release:	3
 License:	MIT
 Group:		Libraries
 Source0:	http://www.ngolde.de/download/%{name}-%{version}.tar.gz
 # Source0-md5:	05b53dd7bead66dda35fec502b91066c
 Patch0:		%{name}-Makefile.patch
+Patch1:		globals-single-definition.patch
 URL:		http://www.ngolde.de/libacpi.html
 ExclusiveArch:	%{ix86} %{x8664} x32 ia64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -45,6 +46,7 @@ Statyczna biblioteka libacpi.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %{__make} \

@@ -1,0 +1,36 @@
+--- libacpi-0.2/libacpi.h.orig	2007-07-27 10:46:28.000000000 +0200
++++ libacpi-0.2/libacpi.h	2026-03-10 00:02:00.000000000 +0100
+@@ -183,17 +183,17 @@
+  * Array for existing batteries, loop until
+  * globals->battery_count
+  */
+-battery_t batteries[MAX_ITEMS];
++extern battery_t batteries[MAX_ITEMS];
+ /**
+  * Array for existing thermal zones, loop until
+  * globals->thermal_count
+  */
+-thermal_t thermals[MAX_ITEMS];
++extern thermal_t thermals[MAX_ITEMS];
+ /**
+  * Array for existing fans, loop until
+  * globals->fan_count
+  */
+-fan_t fans[MAX_ITEMS];
++extern fan_t fans[MAX_ITEMS];
+ /**
+  * Finds existing batteries and fills the
+  * corresponding batteries structures with the paths
+--- libacpi-0.2/libacpi.c.orig	2007-07-27 10:46:28.000000000 +0200
++++ libacpi-0.2/libacpi.c	2026-03-10 00:02:00.000000000 +0100
+@@ -12,6 +12,10 @@
+ #include "libacpi.h"
+ #include "list.h"
+ 
++battery_t batteries[MAX_ITEMS];
++thermal_t thermals[MAX_ITEMS];
++fan_t fans[MAX_ITEMS];
++
+ static int read_acpi_battinfo(const int num);
+ static int read_acpi_battalarm(const int num);
+ static int read_acpi_battstate(const int num);
